@@ -1,71 +1,75 @@
-{% extends 'main.html' %}
-
-{% block title %} DevSearch {% endblock title %}
-
+{% extends 'main.html' %} {% block title %} DevSearch {% endblock title %} 
 
 {% block style %}
-    <style>
-        .selectgroup-button:hover{
-            color: #fff !important;
-        }
-    </style>
-{% endblock style %}
-
+<style>
+  .selectgroup-button:hover {
+    color: #fff !important;
+  }
+</style>
+{% endblock style %} 
 
 {% block content %}
 
-
 <div class="row">
-    {% for project in projects %}
-        <div class="col-12 col-md-4 col-lg-4">
-        <article class="article article-style-c">
-            <div class="article-header">
-            <div class="article-image" data-background="{{ project.featured_image.url }}">
-            </div>
-            </div>
-            <div class="article-details">
-            <div class="article-category">{{ project.created_at }}</div>
-            <div class="article-title">
-                <h2><a href="{% url 'project' project.id %}">{{ project.title }}</a></h2>
-            </div>
-            <p>{{ project.description }}</p>
-            <div class="article-user">
-                <div class="selectgroup selectgroup-pills">
-                    {% for tag in project.tags.all %}
-                    <label class="selectgroup-item">
-                        <input type="checkbox" name="value" checked value="Ruby" disabled class="selectgroup-input">
-                        <a class="selectgroup-button">{{ tag.name }}</a>
-                    </label>
-                    {% endfor %}
-                  </div>
-            </div>
-            </div>
-        </article>
+  {% for project in projects %}
+  <div class="col-12 col-md-4 col-lg-4">
+    <article class="article article-style-c">
+      <div class="article-header">
+        <div
+          class="article-image"
+          data-background="{{ project.featured_image.url }}"
+        ></div>
+      </div>
+      <div class="article-details">
+        <div class="article-category">{{ project.created_at }}</div>
+        <div class="article-title">
+          <h2>
+            <a href="{% url 'project' project.id %}">{{ project.title }}</a>
+          </h2>
         </div>
-    {% endfor %}
+        <p>{{ project.description }}</p>
+        <div class="article-user">
+          <div class="selectgroup selectgroup-pills">
+            {% for tag in project.tags.all %}
+            <label class="selectgroup-item">
+              <input
+                type="checkbox"
+                name="value"
+                checked
+                value="Ruby"
+                disabled
+                class="selectgroup-input"
+              />
+              <a class="selectgroup-button">{{ tag.name }}</a>
+            </label>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </article>
   </div>
+  {% endfor %}
+</div>
 
 <table>
-    <tr>
-        <th>id</th>
-        <th>Project</th>
-        <th>vote</th>
-        <th>created</th>
-        <th>view</th>
-    </tr>
-    {% for project in projects %}
-        <tr>
-            <td>{{ forloop.counter }}</td>
-            <td>{{ project.title }}</td>
-            <td>{{ project.vote }}</td>
-            <td>{{ project.created_at }}</td>
-            <td><a href=" {% url 'project' project.id %} ">view</a></td>
-            <td><a href=" {% url 'update-project' project.id %} ">update</a></td>
-            <td><a href=" {% url 'delete-project' project.id %} ">delete</a></td>
-        </tr>
-    {% endfor %}
+  <tr>
+    <th>id</th>
+    <th>Project</th>
+    <th>vote</th>
+    <th>created</th>
+    <th>view</th>
+  </tr>
+  {% for project in projects %}
+  <tr>
+    <td>{{ forloop.counter }}</td>
+    <td>{{ project.title }}</td>
+    <td>{{ project.vote }}</td>
+    <td>{{ project.created_at }}</td>
+    <td><a href=" {% url 'project' project.id %} ">view</a></td>
+    <td><a href=" {% url 'update-project' project.id %} ">update</a></td>
+    <td><a href=" {% url 'delete-project' project.id %} ">delete</a></td>
+  </tr>
+  {% endfor %}
 </table>
-
-
 
 {% endblock content %}

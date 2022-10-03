@@ -1,8 +1,100 @@
-{% extends 'main.html' %}
+{% extends 'main.html' %} {% block content %}
 
-{% block content %}
+  <!-- General CSS Files -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 
-helloe
-<div class="breadcrumb-item"><a href="{% url 'users.show' '1' %}">Projects</a></div>
+  {% block style %}
+<style>
+  .selectgroup-button:hover {
+    color: #fff !important;
+  }
+</style>
+{% endblock style %} 
+
+<section class="section">
+  <div class="section-header">
+    <h1>All profils</h1>
+    <div class="section-header-breadcrumb">
+      <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
+      <div class="breadcrumb-item">Profile</div>
+    </div>
+  </div>
+  <div class="section-body">
+    <div class="row mt-sm-4">
+      {% for profile in profiles %}
+      <div class="col-12 col-md-12 col-lg-6">
+        <div class="card profile-widget">
+          <div class="profile-widget-header">
+            <img
+              alt="image"
+              src="{{ profile.profile_image.url }}"
+              class="rounded-circle profile-widget-picture"
+            />
+            <div class="profile-widget-items">
+              <div class="profile-widget-item">
+                <div class="profile-widget-item-label">Posts</div>
+                <div class="profile-widget-item-value">187</div>
+              </div>
+              <div class="profile-widget-item">
+                <div class="profile-widget-item-label">Followers</div>
+                <div class="profile-widget-item-value">6,8K</div>
+              </div>
+              <div class="profile-widget-item">
+                <div class="profile-widget-item-label">Following</div>
+                <div class="profile-widget-item-value">2,1K</div>
+              </div>
+            </div>
+          </div>
+          <div class="profile-widget-description">
+            <div class="profile-widget-name">
+              <a href="{% url 'users.show' profile.id %}">{{ profile.name }}</a>
+              <div class="text-muted d-inline font-weight-normal">
+                <div class="slash"></div>
+                Web Developer
+              </div>
+            </div>
+            {% comment %} {{ profile.short_intro }} {% endcomment %}
+            {{ profile.bio|slice:"250" }}...
+          </div>
+
+          <div class="article-user" style="margin: 20px">
+            <div class="selectgroup selectgroup-pills">
+              {% for skill in profile.skill_set.all|slice:"5" %}
+              <label class="selectgroup-item">
+                <input
+                  type="checkbox"
+                  name="value"
+                  checked
+                  value="Ruby"
+                  disabled
+                  class="selectgroup-input"
+                />
+                <a class="selectgroup-button">{{ skill.name }}</a>
+              </label>
+              {% endfor %}
+            </div>
+          </div>
+
+          <div class="card-footer text-center">
+            <div class="font-weight-bold mb-2">Follow Ujang On</div>
+            <a href="#" class="btn btn-social-icon btn-facebook mr-1">
+              <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="#" class="btn btn-social-icon btn-twitter mr-1">
+              <i class="fab fa-twitter"></i>
+            </a>
+            <a href="#" class="btn btn-social-icon btn-github mr-1">
+              <i class="fab fa-github"></i>
+            </a>
+            <a href="#" class="btn btn-social-icon btn-instagram">
+              <i class="fab fa-instagram"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
 
 {% endblock content %}
