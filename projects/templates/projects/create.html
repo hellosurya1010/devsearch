@@ -8,8 +8,15 @@
     }
 </style>
 
+<section class="section">
+<div class="section-header">
+  <h1>Create project</h1>
+  <div class="section-header-breadcrumb">
+    <div class="breadcrumb-item "><a href="#">Dashboard</a></div>
+  </div>
+</div>
 
-<form action="" method="POST">
+<form action="" method="POST" entype="multipart/form-data">
     {% csrf_token %}
 
     {% for input in forms %}
@@ -21,7 +28,6 @@
     {% endfor %}
 
     <div class="form-group">
-        <label class="form-label">Your skills</label>
         <div class="selectgroup selectgroup-pills">
           <label class="selectgroup-item">
             <input type="checkbox" name="value" value="HTML" class="selectgroup-input" checked="">
@@ -56,5 +62,6 @@
 
     <input type="submit">
 </form>
+</section>
 
 {% endblock content %}

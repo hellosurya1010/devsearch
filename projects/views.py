@@ -28,7 +28,7 @@ def createProject(request):
             form.save()
             return redirect('projects')
     context = {'forms': forms}
-    return render(request, 'projects/form.html', context)
+    return render(request, 'projects/create.html', context)
 
 def updateProject(request, id):
     project = Project.objects.get(id=id)
@@ -39,7 +39,7 @@ def updateProject(request, id):
             form.save()
             return redirect('projects')
     context = {'forms': forms}
-    return render(request, 'projects/form.html', context)
+    return render(request, 'projects/show.html', context)
 
 def deleteProject(request, id):
     project = Project.objects.get(id=id)

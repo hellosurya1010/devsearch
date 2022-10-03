@@ -13,8 +13,27 @@ class ProjectForm(ModelForm):
     
     def __init__(self, *args, **kwargs):   
         super(ProjectForm, self).__init__(*args, **kwargs)
+        
         self.fields['title'].widget.attrs.update({
             'class': 'form-control',
+            'placeholder': 'Enter project title',
         })
+
+        self.fields['demo_link'].widget.attrs.update({
+            'class': 'form-control',
+            'placeholder': 'Enter project demo link',
+        })
+
+        self.fields['source_link'].widget.attrs.update({
+            'class': 'form-control',
+            'placeholder': 'Enter project source link',
+        })
+
+        self.fields['description'].widget.attrs.update({
+            'class': 'form-control',
+            'placeholder': 'Enter project description',
+            'style': 'height: 80px',
+        })
+
 
 
