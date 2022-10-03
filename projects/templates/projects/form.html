@@ -1,0 +1,60 @@
+{% extends 'main.html' %} 
+
+{% block content %}
+
+<style>
+    .form-group{
+        margin-top: 10px;
+    }
+</style>
+
+
+<form action="" method="POST">
+    {% csrf_token %}
+
+    {% for input in forms %}
+     <div class="form-group">
+        <label>{{ input.label }}</label>
+            {{ input }}
+      </div>
+      
+    {% endfor %}
+
+    <div class="form-group">
+        <label class="form-label">Your skills</label>
+        <div class="selectgroup selectgroup-pills">
+          <label class="selectgroup-item">
+            <input type="checkbox" name="value" value="HTML" class="selectgroup-input" checked="">
+            <span class="selectgroup-button">HTML</span>
+          </label>
+          <label class="selectgroup-item">
+            <input type="checkbox" name="value" value="CSS" class="selectgroup-input">
+            <span class="selectgroup-button">CSS</span>
+          </label>
+          <label class="selectgroup-item">
+            <input type="checkbox" name="value" value="PHP" class="selectgroup-input">
+            <span class="selectgroup-button">PHP</span>
+          </label>
+          <label class="selectgroup-item">
+            <input type="checkbox" name="value" value="JavaScript" class="selectgroup-input">
+            <span class="selectgroup-button">JavaScript</span>
+          </label>
+          <label class="selectgroup-item">
+            <input type="checkbox" name="value" value="Ruby" class="selectgroup-input">
+            <span class="selectgroup-button">Ruby</span>
+          </label>
+          <label class="selectgroup-item">
+            <input type="checkbox" name="value" value="Ruby" class="selectgroup-input">
+            <span class="selectgroup-button">Ruby</span>
+          </label>
+          <label class="selectgroup-item">
+            <input type="checkbox" name="value" value="C++" class="selectgroup-input">
+            <span class="selectgroup-button">C++</span>
+          </label>
+        </div>
+      </div>
+
+    <input type="submit">
+</form>
+
+{% endblock content %}

@@ -1,0 +1,66 @@
+setp 1
+	pip install virtualenv
+setp 2
+	python -m venv <venv-name>
+	to create new virtual env
+	\scripts\activate  to activate it  
+	\scripts\deactivate  to deactivate it 
+
+ 
+setp 3
+	pip install django
+	note: execte this setp after the env activation.
+
+setp 4 
+	django-admin startproject project01
+
+setp 5
+	python manage.py runserver
+
+setp 6
+	make the mini app inside the project foler
+	command: python manage.py startapp base
+
+command:
+	pip list 
+	to see the list of installed packages
+
+command:
+    python manage.py startapp projects
+        To create mini app.
+
+command:
+	python manage.py migrate
+		To migrate all the basic table for the admin panel
+	
+command:
+	python manage.py createsuperuser
+		To create the super user in cli
+	
+command:
+	python manage.py makemigrations
+		To create the migration script
+	
+command:
+	python manage.py migrate
+		To execute the migration logic
+	
+command:
+	python manage.py shell 
+		This command is like tinker command in laraver so you can intract with db in CLI
+	
+command:
+	python -m pip install pillow
+		This command is used to install the image library to store the image 
+	
+command:
+	python manage.py collectstatic
+		This command is used to create staticfiles folder with static files
+
+command:
+	 pip install whitenoise
+
+Note:
+	when the debug mode is set to False, the styling in the css files dosent work until you run the python manage.py collectstatic command
+
+	# kwargs is keyword argmentas
