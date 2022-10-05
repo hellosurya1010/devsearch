@@ -1,10 +1,13 @@
 import email
 from email.policy import default
 from operator import mod
+import profile
 from xml.parsers.expat import model
 from django.db import models
 from django.contrib.auth.models import User
 import uuid
+from django.db.models import signals
+from django.dispatch import receiver
 
 from django.forms import CharField
 
@@ -37,3 +40,4 @@ class Skill(models.Model):
 
     def __str__(self):
         return str(self.name)
+        

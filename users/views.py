@@ -16,3 +16,9 @@ def index(request):
     print(profiles)
     context = {'profiles': profiles}
     return render(request, 'users/index.html', context)
+
+def register(request):
+    return render(request, 'users/register.html') 
+
+def login(request):
+    return render(request, 'users/login.html') 

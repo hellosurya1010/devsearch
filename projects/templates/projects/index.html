@@ -51,25 +51,5 @@
   {% endfor %}
 </div>
 
-<table>
-  <tr>
-    <th>id</th>
-    <th>Project</th>
-    <th>vote</th>
-    <th>created</th>
-    <th>view</th>
-  </tr>
-  {% for project in projects %}
-  <tr>
-    <td>{{ forloop.counter }}</td>
-    <td>{{ project.title }}</td>
-    <td>{{ project.vote }}</td>
-    <td>{{ project.created_at }}</td>
-    <td><a href=" {% url 'project' project.id %} ">view</a></td>
-    <td><a href=" {% url 'update-project' project.id %} ">update</a></td>
-    <td><a href=" {% url 'delete-project' project.id %} ">delete</a></td>
-  </tr>
-  {% endfor %}
-</table>
 
 {% endblock content %}
