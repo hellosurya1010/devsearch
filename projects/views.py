@@ -3,6 +3,7 @@ from multiprocessing.dummy import current_process
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import Project
+from django.contrib.auth.decorators import login_required
 from .forms import ProjectForm
 
 projectlist = [
@@ -20,6 +21,7 @@ def project(request, id):
     tags = project.tags.all()
     return render(request, 'projects/show.html', {'project': project, 'tags': tags })
 
+@login_required(login_url='login')
 def createProject(request):
     forms = ProjectForm()
     if request.method == "POST":
@@ -30,6 +32,7 @@ def createProject(request):
     context = {'forms': forms}
     return render(request, 'projects/create.html', context)
 
+@login_required(login_url='login')
 def updateProject(request, id):
     project = Project.objects.get(id=id)
     forms = ProjectForm(instance=project)
@@ -41,6 +44,7 @@ def updateProject(request, id):
     context = {'forms': forms}
     return render(request, 'projects/show.html', context)
 
+@login_required(login_url='login')
 def deleteProject(request, id):
     project = Project.objects.get(id=id)
     project.delete()

@@ -1,0 +1,11 @@
+<script>
+    {% if messages %}
+        {% for message in messages %}
+            iziToast.{{message.tags}}({
+            title: '{{ message.tags }}',
+            message: '{{ message }}',
+            position: 'topRight'
+            });
+        {% endfor %}
+    {% endif %}
+  </script>

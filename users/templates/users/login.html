@@ -1,0 +1,51 @@
+{% extends 'main.html' %} 
+
+{% block title %} login {% endblock title %}
+
+{% block content %}
+
+<section class="section">
+    <div class="container mt-5">
+      <div class="row">
+        <div class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-8 offset-lg-2 col-xl-8 offset-xl-2">
+
+          <div class="card card-primary">
+            <div class="card-header"><h4>Login</h4></div>
+
+            <div class="card-body">
+              <form {% url 'login' %} method="POST">
+                {% csrf_token %}
+                <div class="row">
+                  <div class="form-group col-12">
+                    <label for="first_name">Username</label>
+                    <input id="first_name" type="text" class="form-control" name="username" autofocus>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="form-group col-12">
+                    <label for="password" class="d-block">Password</label>
+                    <input id="password" type="password" class="form-control pwstrength" data-indicator="pwindicator" name="password">
+                    <div id="pwindicator" class="pwindicator">
+                      <div class="bar"></div>
+                      <div class="label"></div>
+                    </div>
+                  </div>
+
+                </div>
+
+
+                <div class="form-group">
+                  <button type="submit" class="btn btn-primary btn-lg btn-block">
+                    Login
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>  
+        </div>
+      </div>
+    </div>
+  </section>
+
+{% endblock content %}
