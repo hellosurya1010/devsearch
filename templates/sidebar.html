@@ -9,6 +9,7 @@
       <ul class="sidebar-menu">
         <li><a class="nav-link" href="{% url 'projects' %}"><i class="fas fa-pencil-ruler"></i> <span>All Projects</span></a></li>
         <li><a class="nav-link" href="{% url 'create-project' %}"><i class="fas fa-pencil-ruler"></i> <span>Add Project</span></a></li>
+        <li><a class="nav-link" href="{% url 'users.account' %}"><i class="fas fa-pencil-ruler"></i> <span>Account</span></a></li>
         {% if request.user.is_authenticated %}
           <li><a class="nav-link" href="{% url 'logout' %}"><i class="fas fa-pencil-ruler"></i> <span>Logout</span></a></li>
         {% else %}

@@ -7,6 +7,7 @@ prefix =  "users."
 urlpatterns = [
     path('', views.index, name=prefix+"index"),
     path('show/<str:id>', views.show, name=prefix+"show"),
+    path('account', views.account, name=prefix+"account"),
     path('login', views.loginUser, name="login"),
     path('logout', views.logoutUser, name="logout"),
     path('register', views.registerUser, name="register"),

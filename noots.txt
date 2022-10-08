@@ -64,3 +64,22 @@ Note:
 	when the debug mode is set to False, the styling in the css files dosent work until you run the python manage.py collectstatic command
 
 	# kwargs is keyword argmentas
+
+
+
+Mysql server
+
+	mysqld --initialize-insecure
+	mysqld --console 
+	mysql -u root --skip-password
+
+	To changet the password
+	alter user 'root'@'localhost' identified by 'surya'; 
+	
+	\q  # command is user to quite the cli
+	mysql -u root -p
+
+	to add mysql service to windows service
+		mysqld --install "mysql hello"
+	to remove the service
+		mysqld remove "mysql text"
