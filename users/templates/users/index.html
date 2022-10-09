@@ -50,7 +50,7 @@
               <a href="{% url 'users.show' profile.id %}">{{ profile.name }}</a>
               <div class="text-muted d-inline font-weight-normal">
                 <div class="slash"></div>
-                Web Developer
+                {{ profile.job }}
               </div>
             </div>
             {% comment %} {{ profile.short_intro }} {% endcomment %}

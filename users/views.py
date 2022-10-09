@@ -1,13 +1,16 @@
 from ast import Try
 import profile
+from urllib import request
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout
 # from django.contrib.auth.forms import UserCreationForm 
-from .forms import CustomUserCreationForm
+from .forms import CustomUserCreationForm, ProfileForm
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from .models import Profile
+from .service import Get, Post
 
 # Create your views here.
 
@@ -39,6 +42,7 @@ def registerUser(request):
     context = {'form': form}
     return render(request, 'users/register.html', context) 
 
+@login_required(login_url='login')
 def loginUser(request):
     if request.user.is_authenticated:
         return redirect('users.index')
@@ -74,3 +78,28 @@ def account(request):
     skills = profile.skill_set.all()
     context = {'profile': profile, 'skills': skills}
     return render(request, 'users/account.html', context)
+
+@login_required(login_url='login')
+def accountEdit(request):
+    if request.method == "GET":
+        return Get.accontEditForm(request)    
+    if request.method == "POST":
+        return Post.accontEditForm(request)
+
+@login_required(login_url="login")        
+def skill(request):
+    if request.method == "GET":
+        return Get.skill(request)    
+    if request.method == "POST":
+        return Post.skill(request)
+        
+@login_required(login_url='login')
+def skillUpdate(request, id):
+    if request.method == "GET":
+        return Get.skillUpdate(request, id)
+    if request.method == "POST":
+        return Post.skillUpdate(request, id)
+        
+@login_required(login_url='login')
+def skillDelete(request, id):
+        return Get.skillDelete(request, id)

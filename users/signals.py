@@ -28,6 +28,16 @@ def profileDeleted(sender, instance, **kwargs):
     user.delete()
     print('deleted')
 
+def updateUser(sender, instance, created, **kwargs):
+    profile = instance
+    user = profile.user
+    if created == False:
+        user.first_name = profile.name
+        user.username = profile.username
+        user.email = profile.email
+        user.save()
+
 signals.post_save.connect(profilepUpdated, sender=Profile)
 signals.post_save.connect(createProfile, sender=User)
 signals.post_delete.connect(profileDeleted, sender=Profile)
+signals.post_save.connect(updateUser, sender=Profile)
