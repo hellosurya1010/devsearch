@@ -12,7 +12,9 @@ urlpatterns = [
     path('account/edit', views.accountEdit, name=prefix+"account.edit"),
     path('login', views.loginUser, name="login"),
     path('logout', views.logoutUser, name="logout"),
-    path('register', views.registerUser, name="register"),
+    path('regisiter', views.registerUser, name="register"),
+
+    path('query/', views.query, name="query"),
 
     path('skill/', views.skill, name=prefix+'skill'),
     path('skill/update/<str:id>', views.skillUpdate, name=prefix+'skill.update'),

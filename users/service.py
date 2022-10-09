@@ -1,3 +1,4 @@
+from django.contrib import messages
 from users.models import Profile, Skill
 from .forms import ProfileForm, SkillForm
 from django.shortcuts import HttpResponse, render, redirect
@@ -26,6 +27,7 @@ class Get:
     def skillDelete(request, id):
         profile = request.user.profile
         skill = profile.skill_set.get(id=id)
+        messages.error(request, skill.name+' deleted')
         skill.delete()
         return redirect('users.account')
 
@@ -45,6 +47,7 @@ class Post:
             profile = request.user.profile
             skill.owner = profile
             skill.save()
+            messages.success(request, skill.name+' created')
         return redirect('users.account')
 
 
@@ -54,4 +57,5 @@ class Post:
         form = SkillForm(request.POST, instance=skill)
         if form.is_valid():
             form.save()
+            messages.success(request, skill.name+' updated')
         return redirect('users.account')

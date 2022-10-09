@@ -1,5 +1,6 @@
 import email
 from email.policy import default
+from enum import unique
 from operator import mod
 import profile
 from xml.parsers.expat import model
@@ -41,4 +42,13 @@ class Skill(models.Model):
 
     def __str__(self):
         return str(self.name)
+
+class Post(models.Model):
+    id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True, editable=False)
+    title = models.CharField(max_length=256, null=True, blank=True)
+    description = models.TextField(null=True, blank=True)
+    user = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return str(self.title)
         

@@ -10,6 +10,7 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from .models import Profile
+from .models import Post as Po
 from .service import Get, Post
 
 # Create your views here.
@@ -103,3 +104,10 @@ def skillUpdate(request, id):
 @login_required(login_url='login')
 def skillDelete(request, id):
         return Get.skillDelete(request, id)
+
+def query(request):
+    posts = Po.objects.get(title="django")
+    posts.title = 'Laravel'
+    posts.description = 'Laravel is an MVC framework'
+    posts.save()
+    return HttpResponse(posts)
