@@ -15,6 +15,7 @@ urlpatterns = [
     path('regisiter', views.registerUser, name="register"),
 
     path('query/', views.query, name="query"),
+    path('search/<str:searchfor>', views.search, name="search"),
 
     path('skill/', views.skill, name=prefix+'skill'),
     path('skill/update/<str:id>', views.skillUpdate, name=prefix+'skill.update'),

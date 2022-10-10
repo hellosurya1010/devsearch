@@ -1,0 +1,11 @@
+<div class="search-header">
+    Users
+</div>
+{% for profile in profiles %}
+  <div class="search-item">
+    <a href="#">
+      <img class="mr-3 rounded" width="30" src="{{ profile.profile_image.url }}" alt="product">
+      {{ profile.username }}
+    </a>
+  </div>
+{% endfor %}

@@ -111,3 +111,8 @@ def query(request):
     posts.description = 'Laravel is an MVC framework'
     posts.save()
     return HttpResponse(posts)
+
+def search(request, searchfor):
+    profiles = Profile.objects.filter(name__icontains=request.GET['value'])
+    context = { "profiles": profiles }
+    return render(request, 'ajax/porfile-search.html', context)
