@@ -1,0 +1,31 @@
+<script>
+  let search = document.getElementById("search");
+  let searchResults = document.querySelector(".search-result");
+  let base_url = "http://localhost:8000/";
+  search.placeholder = "search for users, projects, skills";
+  search.addEventListener("input", (_) => {
+    $.ajax({
+      url: `${base_url}search/users`,
+      type: "GET",
+      data: { value: search.value },
+      success(d) {
+        searchResults.innerHTML = d;
+        console.info(search.value, d);
+      },
+    });
+  });
+</script>
+
+<script>
+  
+  let href = location.href;
+
+  function active(el) {
+    if (el.href == href) {
+      el.parentNode.classList.add("active");
+    }
+  }
+
+  document.querySelectorAll(".page-link").forEach(active);
+  document.querySelectorAll(".nav-link").forEach(active);
+</script>

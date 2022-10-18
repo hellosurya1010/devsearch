@@ -1,14 +1,11 @@
 {% extends 'main.html' %} {% block title %} DevSearch {% endblock title %} 
-
 {% block style %}
 <style>
   .selectgroup-button:hover {
     color: #fff !important;
   }
 </style>
-{% endblock style %} 
-
-{% block content %}
+{% endblock style %} {% block content %}
 
 <div class="row">
   {% for project in projects %}
@@ -50,6 +47,31 @@
   </div>
   {% endfor %}
 </div>
+
+<div class="card">
+  <div class="card-body">
+    <nav aria-label="...">
+      <ul class="pagination" style="justify-content: flex-end; margin: 0">
+        {% if projects.has_previous %}
+          <li class="page-item">
+            <a class="page-link" href="?page={{projects.previous_page_number}}" tabindex="-1">Previous</a>
+          </li>
+        {% endif %}
+        {% for page in paginator.page_range %}
+        <li class="page-item">
+          <a class="page-link" href="?page={{page}}">{{page}}</a>
+        </li>
+        {% endfor %} 
+        {% if projects.has_next %}
+        <li class="page-item">
+          <a class="page-link" href="?page={{projects.next_page_number}}" tabindex="-1">Next</a>
+        </li>
+        {% endif %}
+      </ul>
+    </nav>
+  </div>
+</div>
+
 
 
 {% endblock content %}

@@ -7,11 +7,13 @@ from django.contrib.auth import login, authenticate, logout
 # from django.contrib.auth.forms import UserCreationForm 
 from .forms import CustomUserCreationForm, ProfileForm
 from django.contrib import messages
+from django.db.models import Q
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
-from .models import Profile
+from .models import Profile, Skill
 from .models import Post as Po
 from .service import Get, Post
+from projects.models import Project, Tag
 
 # Create your views here.
 
@@ -43,7 +45,6 @@ def registerUser(request):
     context = {'form': form}
     return render(request, 'users/register.html', context) 
 
-@login_required(login_url='login')
 def loginUser(request):
     if request.user.is_authenticated:
         return redirect('users.index')
@@ -113,6 +114,14 @@ def query(request):
     return HttpResponse(posts)
 
 def search(request, searchfor):
-    profiles = Profile.objects.filter(name__icontains=request.GET['value'])
-    context = { "profiles": profiles }
-    return render(request, 'ajax/porfile-search.html', context)
+    if searchfor == 'users':
+        search = request.GET['value']
+        skills =  Skill.objects.filter(name__iexact=search)
+        tags = Tag.objects.filter(name__icontains=search)
+        profiles = Profile.objects.distinct().filter(
+            Q(name__icontains=search) | Q(bio__icontains=search) | Q(skill__in=skills)
+            )  
+        projects = Project.objects.filter(Q(title__contains=search) | Q(tags__in=tags))
+        context = { "profiles": profiles, "skills": skills, "projects": projects }
+        return render(request, 'ajax/porfile-search.html', context)
+    return HttpResponse('No response')

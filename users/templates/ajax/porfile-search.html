@@ -1,11 +1,46 @@
+{% if profiles %}
 <div class="search-header">
     Users
 </div>
 {% for profile in profiles %}
   <div class="search-item">
-    <a href="#">
+    <a href="{% url 'users.show' profile.id %}">
       <img class="mr-3 rounded" width="30" src="{{ profile.profile_image.url }}" alt="product">
       {{ profile.username }}
     </a>
   </div>
 {% endfor %}
+{% endif %}
+
+
+{% if skills %}
+<div class="search-header">
+  Skills
+</div>
+{% for skill in skills %}
+<div class="search-item">
+  <a href="{% url 'users.show' skill.id %}">
+    <img class="mr-3 rounded" width="30" src="" alt="product">
+    {{ skill.name }}
+  </a>
+</div>
+{% endfor %}
+{% else %}
+{% endif %}
+
+
+
+{% if projects %}
+<div class="search-header">
+  Projects
+</div>
+{% for project in projects %}
+<div class="search-item">
+  <a href="{% url 'project' project.id %}">
+    <img class="mr-3 rounded" width="30" src="" alt="product">
+    {{ project.title }}
+  </a>
+</div>
+{% endfor %}
+{% else %}
+{% endif %}

@@ -6,6 +6,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import Project
 from django.contrib import messages
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.contrib.auth.decorators import login_required
 from .forms import ProjectForm
 
@@ -18,7 +19,17 @@ projectlist = [
 
 def projects(request):
     projects = Project.objects.all()
-    return render(request, 'projects/index.html', {'projects': projects})
+    page = request.GET['page']
+    results = 3
+    paginator = Paginator(projects, results)
+    try:
+        projects = paginator.page(page)
+    except EmptyPage:
+        page = Paginator.num_pages
+    except PageNotAnInteger:
+        page = Paginator.num_pages
+    projects = paginator.page(page)
+    return render(request, 'projects/index.html', {'projects': projects, 'paginator': paginator})
 
 
 def project(request, id):
