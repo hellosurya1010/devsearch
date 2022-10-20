@@ -1,14 +1,9 @@
-from ast import If
-from multiprocessing import context
-from multiprocessing.dummy import current_process
-from turtle import back
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
 from .models import Project
 from django.contrib import messages
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.contrib.auth.decorators import login_required
-from .forms import ProjectForm
+from .forms import ProjectForm, ReviewForm
 
 projectlist = [
     {'id': 1, 'name': 'ehealth', 'description': 'Medical app'},
@@ -34,8 +29,18 @@ def projects(request):
 
 def project(request, id):
     project = Project.objects.get(id=id)
+    form = ReviewForm();
+    print(project.id);
+    if request.method == "POST":
+        form = ReviewForm(request.POST)
+        if form.is_valid():
+            form = form.save(commit=False)
+            form.owner = request.user.profile
+            form.project = project
+            form.save()
+            return redirect('')
     tags = project.tags.all()
-    return render(request, 'projects/show.html', {'project': project, 'tags': tags})
+    return render(request, 'projects/show.html', {'project': project, 'tags': tags, 'form': form})
 
 
 @login_required(login_url='login')

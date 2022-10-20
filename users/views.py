@@ -1,4 +1,5 @@
 from ast import Try
+import imp
 import profile
 from urllib import request
 from django.http import HttpResponse
@@ -10,6 +11,7 @@ from django.contrib import messages
 from django.db.models import Q
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from .models import Profile, Skill
 from .models import Post as Po
 from .service import Get, Post
@@ -26,8 +28,17 @@ def show(request, id):
 
 def index(request):
     profiles = Profile.objects.all()
-    print(profiles)
-    context = {'profiles': profiles}
+    page = request.GET['page']
+    result = 4
+    paginator = Paginator(profiles, result)
+    try:
+        profiles = paginator.page(page)
+    except EmptyPage:
+        page = Paginator.num_pages
+    except PageNotAnInteger:
+        page = Paginator.num_pages
+    profiles = paginator.page(page)
+    context = {'profiles': profiles, 'paginator': paginator}
     return render(request, 'users/index.html', context)
 
 def registerUser(request):

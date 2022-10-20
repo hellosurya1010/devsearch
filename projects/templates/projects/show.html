@@ -61,10 +61,15 @@
                     </div>
 
                     <div class="ticket-form">
-                      <form>
-                        <div class="form-group">
-                          <textarea class="summernote form-control" style="height: 80px" rows="10" cols="200" placeholder="Add your comments ..."></textarea>
-                        </div>
+                      <form action='' method='POST'>
+                        {% csrf_token %}
+                        {% for input in form %}
+                          <div class="form-group">
+                            <label>{{ input.label }}</label>
+                                {{ input }}
+                          </div>
+                        {% endfor %}
+                        <input type="hidden" name="project_id" value="{{ project.id }}">
                         <div class="form-group text-right">
                           <button class="btn btn-primary btn-lg">
                             Submit
@@ -72,6 +77,36 @@
                         </div>
                       </form>
                     </div>
+
+
+                    <div class="article-details">
+                      <div class="article-title">
+                        <h4>Comments</h4>
+                      </div>
+                    </div>
+
+
+                    {% for review in project.review_set.all %}
+                      <div class="ticket-content">
+                        <div class="ticket-header">
+                          <div class="ticket-sender-picture img-shadow">
+                            <img src="{{ review.owner.profile_image.url }}" >
+                          </div>
+                          <div class="ticket-detail">
+                            <div class="ticket-title">
+                              <a href="{% url 'users.show' review.owner_id %}"><h4>{{ review.owner.username }}</h4></a>
+                            </div>
+                            <div class="ticket-info">
+                              <div class="font-weight-600">{{ review.body }}</div>
+                              <div class="bullet"></div>
+                              <div class="text-primary font-weight-600">{{ review.created_at }}</div>
+                            </div>
+                          </div>
+                        </div>
+                    {% endfor %}
+
+
+
                   </div>
                 </div>
               </div>
