@@ -21,6 +21,17 @@ class Project(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True, editable=False)
 
+    @property
+    def calculateVoteRatio(self):
+        reviews = self.review_set.all()
+        upVotes = reviews.filter(value='up').count()
+        totalVoutes = reviews.count()
+        ratio = (upVotes / totalVoutes) * 100
+        self.vote_ratio = ratio
+        self.vote_totel = totalVoutes
+        self.save()
+        
+
     def __str__(self):
         return self.title
     

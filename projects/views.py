@@ -29,8 +29,8 @@ def projects(request):
 
 def project(request, id):
     project = Project.objects.get(id=id)
-    form = ReviewForm();
-    print(project.id);
+    form = ReviewForm()
+    print(project.id)
     if request.method == "POST":
         form = ReviewForm(request.POST)
         if form.is_valid():
@@ -38,7 +38,8 @@ def project(request, id):
             form.owner = request.user.profile
             form.project = project
             form.save()
-            return redirect('')
+            project.calculateVoteRatio
+            return redirect('project', id=id)
     tags = project.tags.all()
     return render(request, 'projects/show.html', {'project': project, 'tags': tags, 'form': form})
 
