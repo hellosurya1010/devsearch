@@ -7,21 +7,17 @@
         <a href="{% url 'users.index' %}">St</a>
       </div>
       <ul class="sidebar-menu">
-        <li><a class="nav-link" href="{% url 'projects' %}?page=1"><i class="fas fa-pencil-ruler"></i> <span>All Projects</span></a></li>
-        <li><a class="nav-link" href="{% url 'create-project' %}"><i class="fas fa-pencil-ruler"></i> <span>Add Project</span></a></li>
-        <li><a class="nav-link" href="{% url 'users.account' %}"><i class="fas fa-pencil-ruler"></i> <span>Account</span></a></li>
+        <li><a class="nav-link" href="{% url 'users.index' %}?page=1"><i class="fas fa-home"></i><span>Home</span></a></li>
+        <li><a class="nav-link" href="{% url 'projects' %}?page=1"><i class="fab fa-hubspot"></i><span>All Projects</span></a></li>
+        <li><a class="nav-link" href="{% url 'create-project' %}"><i class="fab fa-hubspot"></i><span>Add Project</span></a></li>
+        <li><a class="nav-link" href="{% url 'users.account' %}"><i class="fas fa-user-circle"></i><span>Account</span></a></li>
         {% if request.user.is_authenticated %}
-          <li><a class="nav-link" href="{% url 'logout' %}"><i class="fas fa-pencil-ruler"></i> <span>Logout</span></a></li>
+          <li><a class="nav-link" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> <span>Logout</span></a></li>
+          <li><a class="nav-link" href="{% url 'inbox' %}"><i class="fas fa-envelope"></i> <span>Messages</span></a></li>
         {% else %}
-          <li><a class="nav-link" href="{% url 'login' %}"><i class="fas fa-pencil-ruler"></i> <span>Login</span></a></li>
-          <li><a class="nav-link" href="{% url 'register' %}"><i class="fas fa-pencil-ruler"></i> <span>Register</span></a></li>
+          <li><a class="nav-link" href="{% url 'login' %}"><i class="fas fa-sign-in-alt"></i><span>Login</span></a></li>
+          <li><a class="nav-link" href="{% url 'register' %}"><i class="fas fa-user-plus"></i> <span>Register</span></a></li>
         {% endif %}
         </ul>
-
-        <div class="mt-4 mb-4 p-3 hide-sidebar-mini">
-          <a href="https://getstisla.com/docs" class="btn btn-primary btn-lg btn-block btn-icon-split">
-            <i class="fas fa-rocket"></i> Documentation
-          </a>
-        </div>
     </aside>
   </div>

@@ -1,0 +1,40 @@
+{% extends 'main.html' %} {% block content %}
+
+<style>
+  .message-read {
+    font-weight: 900;
+  }
+</style>
+
+<div class="section-body">
+  <h2 class="section-title">{{ request.user.profile.username }}'s Inbox</h2>
+  {% if noOfUnreadedMessages %}
+  <p class="section-lead">
+    You have {{ noOfUnreadedMessages }} unreaded messages.
+  </p>
+  {% endif %}
+  <div class="card">
+    <div class="card-header">
+      <h4>Messages</h4>
+    </div>
+
+    <div class="card-body">
+      <ol>
+        {% for messages in messagesModel %}
+        <li class="text-{% if messages.is_readed %}success{%else%}danger{% endif %}">
+          <a class="text-{% if messages.is_readed %}success{%else%}danger{% endif %}" href="{% url 'message' messages.id %}">
+            <p>Subject: {{ messages.subject }}</p>
+            <p>Body: {{ messages.body }}</p>
+            <div style="display: flex; justify-content: flex-end">
+              <p>Sent by: {{ messages.sender }} at {{ messages.created_at }}</p>
+            </div>
+          </a>
+        </li>
+        {% endfor %}
+      </ol>
+    </div>
+    <div class="card-footer bg-whitesmoke">This is card footer</div>
+  </div>
+</div>
+
+{% endblock content %}

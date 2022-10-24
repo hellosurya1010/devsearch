@@ -1,5 +1,6 @@
 from cProfile import Profile
 from operator import mod
+from re import L
 from statistics import mode
 from wsgiref.simple_server import demo_app
 from django.db import models
@@ -30,6 +31,11 @@ class Project(models.Model):
         self.vote_ratio = ratio
         self.vote_totel = totalVoutes
         self.save()
+
+    @property
+    def revieweres(self):
+        return self.review_set.all().values_list('owner__id', flat=True)
+
         
 
     def __str__(self):

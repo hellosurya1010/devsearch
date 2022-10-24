@@ -1,4 +1,5 @@
 from ast import Try
+from contextlib import redirect_stderr
 import imp
 import profile
 from urllib import request
@@ -6,13 +7,13 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout
 # from django.contrib.auth.forms import UserCreationForm 
-from .forms import CustomUserCreationForm, ProfileForm
+from .forms import CustomUserCreationForm, MessageForm, ProfileForm
 from django.contrib import messages
 from django.db.models import Q
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-from .models import Profile, Skill
+from .models import Message, Profile, Skill
 from .models import Post as Po
 from .service import Get, Post
 from projects.models import Project, Tag
@@ -28,7 +29,9 @@ def show(request, id):
 
 def index(request):
     profiles = Profile.objects.all()
-    page = request.GET['page']
+    page = 1
+    if request.GET:
+        page = request.GET['page']
     result = 4
     paginator = Paginator(profiles, result)
     try:
@@ -124,6 +127,15 @@ def query(request):
     posts.save()
     return HttpResponse(posts)
 
+@login_required(login_url='login')
+def inbox(request):
+    profile = request.user.profile
+    messagesModel = profile.messages.all()
+    noOfUnreadedMessages = messagesModel.filter(is_readed=False).count()
+    context = {'messagesModel': messagesModel, "noOfUnreadedMessages": noOfUnreadedMessages}
+    return render(request, 'messages/inbox.html', context)
+
+
 def search(request, searchfor):
     if searchfor == 'users':
         search = request.GET['value']
@@ -136,3 +148,29 @@ def search(request, searchfor):
         context = { "profiles": profiles, "skills": skills, "projects": projects }
         return render(request, 'ajax/porfile-search.html', context)
     return HttpResponse('No response')
+
+@login_required(login_url='login')
+def message(request, id):
+    profile = request.user.profile
+    message = profile.messages.get(id=id)
+    if message.is_readed == False:
+        message.is_readed = True
+        message.save()
+    context = {'message': message}
+    return render(request, 'messages/message.html', context)
+
+
+def sendMessage(request, id):
+    profile = Profile.objects.get(id=id)
+    messageForm = MessageForm()
+    if request.method == "POST":
+        form = MessageForm(request.POST)
+        if form.is_valid(): 
+            form = form.save(commit=False)
+            form.sender = request.user.profile
+            form.receiver = profile
+            form.save()
+            messages.success(request, 'Message has send successfully')
+            return redirect('users.show', id=id)
+    context = {"profile": profile, "messageForm": messageForm}
+    return render(request, 'messages/message.html', context)

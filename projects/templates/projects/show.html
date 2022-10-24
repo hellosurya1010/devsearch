@@ -60,23 +60,30 @@
                       <p>{{ project.vote_ratio }}% Positive feedback {{project.vote_totel}} vote{{ project.vote_totel | pluralize:'s'}}</p>
                     </div>
 
-                    <div class="ticket-form">
-                      <form action='' method='POST'>
-                        {% csrf_token %}
-                        {% for input in form %}
-                          <div class="form-group">
-                            <label>{{ input.label }}</label>
-                                {{ input }}
-                          </div>
-                        {% endfor %}
-                        <input type="hidden" name="project_id" value="{{ project.id }}">
-                        <div class="form-group text-right">
-                          <button class="btn btn-primary btn-lg">
-                            Submit
-                          </button>
+                    {% if request.user.profile.id in project.revieweres %}
+                     <h5>You had commented on this project</h5>
+                    {% else %}
+                      {% if request.user.is_authenticated %}
+                        <div class="ticket-form">
+                          <form action='' method='POST'>
+                            {% csrf_token %}
+                            {% for input in form %}
+                              <div class="form-group">
+                                <label>{{ input.label }}</label>
+                                    {{ input }}
+                              </div>
+                            {% endfor %}
+                            <input type="hidden" name="project_id" value="{{ project.id }}">
+                            <div class="form-group text-right">
+                              <button class="btn btn-primary btn-lg">
+                                Submit
+                              </button>
+                            </div>
+                          </form>
                         </div>
-                      </form>
-                    </div>
+                      {% endif %}
+                    {% endif %}
+
 
                     <div class="article-details">
                       <div class="article-title">

@@ -39,6 +39,7 @@ def project(request, id):
             form.project = project
             form.save()
             project.calculateVoteRatio
+            messages.success(request, 'Your review successfully added.')
             return redirect('project', id=id)
     tags = project.tags.all()
     return render(request, 'projects/show.html', {'project': project, 'tags': tags, 'form': form})

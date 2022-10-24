@@ -1,0 +1,26 @@
+{% extends 'main.html' %} {% block content %}
+
+<div class="section-body">
+  <div class="card">
+    <div class="card-header">
+      <h4>Sending message to {{ profile.username }}</h4>
+    </div>
+    <div class="card-body">
+        <form action="" method="POST" entype="multipart/form-data">
+            {% csrf_token %}
+        
+            {% for input in messageForm %}
+             <div class="form-group">
+                <label>{{ input.label }}</label>
+                    {{ input }}
+              </div>
+              
+            {% endfor %}
+        
+            <input type="submit" class="btn btn-primary">
+        </form>
+    </div>
+    <div class="card-footer bg-whitesmoke">{{ message.created_at }}</div>
+  </div>
+</div>
+{% endblock content %}
